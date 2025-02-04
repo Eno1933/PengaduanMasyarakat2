@@ -15,10 +15,13 @@ return new class extends Migration
             $table->id('id_pengaduan');
             $table->date('tgl_pengaduan');
             $table->char('nik', 16);
+            $table->foreign('nik')->references('nik')->on('masyarakats')->onDelete('cascade');
             $table->text('isi_laporan');
             $table->string('foto', 255)->nullable();
-            $table->enum('status', ['0', 'proses', 'selesai']);
-            $table->foreign('nik')->references('nik')->on('masyarakats')->onDelete('cascade');
+            $table->text('lokasi')->nullable();
+            $table->enum('status', ['tunggu', 'proses', 'selesai'])->default('tunggu');
+            $table->unsignedBigInteger('id_kategori');
+            $table->foreign('id_kategori')->references('id_kategori')->on('kategoris')->onDelete('cascade');
             $table->timestamps();
         });
     }
