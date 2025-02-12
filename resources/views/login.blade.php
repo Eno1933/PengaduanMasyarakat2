@@ -3,27 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login Form</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="{{ asset('fonts/material-icon/css/material-design-iconic-font.min.css') }}">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
-<body class="flex items-center justify-center h-screen bg-gray-100">
-    <div class="w-full max-w-sm p-6 bg-white rounded-lg shadow-md">
-        <h1 class="mb-6 text-xl font-bold text-center">Login</h1>
-        @if ($errors->has('login_error'))
-            <div class="mb-4 text-sm text-red-600">{{ $errors->first('login_error') }}</div>
-        @endif
-        <form action="{{ route('login') }}" method="POST">
-            @csrf
-            <div class="mb-4">
-                <label for="username" class="block mb-2 text-sm font-medium text-gray-700">Username</label>
-                <input type="text" name="username" id="username" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300" placeholder="Masukkan Username" required>
+<body>
+    <div class="main">
+        <!-- Login form -->
+        <section class="sign-in">
+            <div class="container">
+                <div class="signin-content">
+                    <!-- Image Section -->
+                    <div class="signin-image">
+                        <figure><img src="{{ asset('images/signin-image.jpg') }}" alt="Sign in image"></figure>
+                        <a href="{{ route('register') }}" class="signup-image-link">Create an account</a>
+                    </div>
+
+                    <!-- Form Section -->
+                    <div class="signin-form">
+                        <h2 class="form-title">Log In</h2>
+                        
+                        <!-- Error Messages -->
+                        @if ($errors->any())
+                            <div class="alert alert-danger mb-4">
+                                <ul class="mb-0">
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
+                        <!-- Login Form -->
+                        <form method="POST" class="register-form" id="login-form" action="{{ route('login') }}">
+                            @csrf
+                            <!-- Username Input -->
+                            <div class="form-group">
+                                <label for="username"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" name="username" id="username" placeholder="Your Username" required />
+                            </div>
+                            <!-- Password Input -->
+                            <div class="form-group">
+                                <label for="password"><i class="zmdi zmdi-lock"></i></label>
+                                <input type="password" name="password" id="password" placeholder="Password" required />
+                            </div>
+                            <!-- Remember Me Checkbox -->
+                            <div class="form-group">
+                                <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />
+                                <label for="remember-me" class="label-agree-term">
+                                    <span><span></span></span>Remember me
+                                </label>
+                            </div>
+                            <!-- Submit Button -->
+                            <div class="form-group form-button">
+                                <input type="submit" name="signin" id="signin" class="form-submit" value="Log in" />
+                            </div>
+                        </form>
+
+                        <!-- Social Login -->
+                        <div class="social-login">
+                            <span class="social-label">Or login with</span>
+                            <ul class="socials">
+                                <li><a href="#"><i class="display-flex-center zmdi zmdi-facebook"></i></a></li>
+                                <li><a href="#"><i class="display-flex-center zmdi zmdi-twitter"></i></a></li>
+                                <li><a href="#"><i class="display-flex-center zmdi zmdi-google"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="mb-4">
-                <label for="password" class="block mb-2 text-sm font-medium text-gray-700">Password</label>
-                <input type="password" name="password" id="password" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300" placeholder="Masukkan Password" required>
-            </div>
-            <button type="submit" class="w-full px-3 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700">Login</button>
-        </form>
+        </section>
     </div>
+
+    <!-- JS -->
+    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
 </body>
 </html>
